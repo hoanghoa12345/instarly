@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import router from "./routes";
 import App from "./App.vue";
 import "./index.css";
+import Notifications from "notiwind";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faHome,
@@ -23,4 +24,5 @@ library.add(faHome, faBell, faNoteSticky, faBolt, faTrash, faGear, faSearch, faA
 const app = createApp(App);
 app.use(router);
 app.component("font-awesome-icon", FontAwesomeIcon);
+app.use(Notifications);
 app.mount("#app");

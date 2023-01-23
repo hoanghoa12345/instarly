@@ -1,46 +1,82 @@
 <template>
-  <div>
-    <div
-      class="w-full h-80 bg-gray-300 fixed overflow-hidden bg-[url('https://images.pexels.com/photos/2072152/pexels-photo-2072152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] -z-10"
-    >
-      <!-- <img src="https://images.pexels.com/photos/2072152/pexels-photo-2072152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /> -->
+  <div class="max-w-4xl mx-auto flex gap-12">
+    <!-- Feed -->
+    <div class="w-[30rem] mt-8">
+      <Card v-for="item in feed" :key="item.id" :post="item">
+        <img class="rounded-sm" :src="item.photos" alt="photos" />
+      </Card>
     </div>
-    <div class="px-4">
-      <div class="flex justify-between pt-6">
+
+    <div class="hidden lg:block w-64 mt-8">
+      <!-- User profile -->
+      <div class="my-4 flex gap-4">
+        <img :src="profile.profile_pic" class="w-14 h-14 rounded-full object-cover" />
         <div>
-          <button class="px-4 py-2 bg-black opacity-80 rounded-full mr-2">
-            <font-awesome-icon class="text-white" icon="fa-angle-left" />
-          </button>
-          <button class="px-4 py-2 bg-black opacity-80 rounded-full">
-            <font-awesome-icon class="text-white" icon="fa-angle-right" />
-          </button>
-        </div>
-        <div class="bg-black flex items-center px-2 py-3 rounded-full">
-          <img
-            class="w-6 h-6 object-scale-fill border border-slate-700 rounded-full mr-2"
-            src="https://robohash.org/UPK.png?set=set1&size=150x150"
-            alt=""
-          />
-          <span class="text-white text-sm mr-2">Alea Eifouly K...</span>
-          <font-awesome-icon size="sm" class="text-white" icon="fa-chevron-down" />
+          <h2 class="font-bold text-md">{{ profile.username }}</h2>
+          <span class="text-gray-400 text-sm">{{ profile.fullname }}</span>
         </div>
       </div>
-      <div class="pt-8">
-        <h1 class="font-semibold text-white text-3xl py-2">Good Morning, Alea.</h1>
-        <p class="text-white uppercase text-sm">Wednesday, August 17, 2022</p>
-      </div>
-      <div class="mt-8 flex">
-        <div class="flex-grow h-48 bg-white rounded-lg shadow-md mx-4"></div>
-        <div class="w-96 h-48 bg-blue-200 rounded-lg shadow-md mx-4"></div>
-      </div>
-      <div class="mt-8">
-        <div class="w-full h-96 bg-white rounded-lg shadow-lg mx-4"></div>
-      </div>
-    </div>
-    <div class="absolute bottom-4 right-8 bg-lime-500 text-white py-4 px-2 w-48 h-14 rounded-full flex justify-between items-center">
-      <div><font-awesome-icon class="text-white mx-2" icon="fa-plus" /><span class="font-bold">New</span></div>
-      <font-awesome-icon class="text-white mr-2" icon="fa-chevron-down" />
+
+      <!-- suggetions for you -->
     </div>
   </div>
+  <div class="hidden">
+    <button class="bg-green-500 border border-green-400 rounded-md text-white p-2" type="button" @click="signUp">Sign Up</button>
+  </div>
 </template>
-<script setup></script>
+<script setup>
+import { onMounted, reactive, ref } from "vue";
+import { useClient } from "@/composables/useClient";
+import Card from "@/components/feed/Card.vue";
+
+const profile = ref({
+  fullname: "",
+  profile_pic: "",
+  username: "",
+});
+
+const feed = ref([]);
+
+const supabase = useClient();
+
+onMounted(async () => {
+  await getUserProfile();
+
+  await getNewFeed();
+});
+
+const getCurrentUser = async () => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  console.log("[info] ", user);
+
+  return { user };
+};
+
+const getUserProfile = async () => {
+  const { user } = await getCurrentUser();
+
+  const { data, error } = await supabase.from("profiles").select().eq("user_id", user.id).single();
+
+  console.log("[info] ", data, error);
+
+  if (data) {
+    profile.value = {
+      username: data.username,
+      fullname: data.fullname,
+      profile_pic: data.profile_pic,
+    };
+  }
+};
+
+const getNewFeed = async () => {
+  const { data, error } = await supabase.from("posts").select(`
+  created_at, caption, photos, profile(profile_pic, username)
+  `);
+  console.log("[info] feed", data, error);
+
+  feed.value = data;
+};
+</script>
