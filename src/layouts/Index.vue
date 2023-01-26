@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import { HomeIcon } from "@heroicons/vue/24/solid";
 import {
   MagnifyingGlassIcon,
@@ -10,6 +11,9 @@ import {
   Bars3Icon,
 } from "@heroicons/vue/24/outline";
 import Menu from "@/components/sidebar/Menu.vue";
+import CreatePost from "@/components/post/CreatePost.vue";
+
+const modalNewPost = ref(false);
 </script>
 <template>
   <!-- Topbar on mobile -->
@@ -77,7 +81,7 @@ import Menu from "@/components/sidebar/Menu.vue";
           <Menu title="Notification">
             <HeartIcon class="w-8 h-8" />
           </Menu>
-          <Menu title="Create">
+          <Menu title="Create" @click="modalNewPost = true">
             <PlusCircleIcon class="w-8 h-8" />
           </Menu>
         </ul>
@@ -117,5 +121,9 @@ import Menu from "@/components/sidebar/Menu.vue";
         </div>
       </ul>
     </div>
+    <!-- Modal Create Post -->
+    <Teleport to="body">
+      <CreatePost :open="modalNewPost" @close="modalNewPost = false" />
+    </Teleport>
   </div>
 </template>

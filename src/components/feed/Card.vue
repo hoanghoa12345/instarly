@@ -40,7 +40,8 @@ import { HeartIcon as HeartSolidIcon } from "@heroicons/vue/24/solid";
 import { HeartIcon, ChatBubbleOvalLeftIcon, PaperAirplaneIcon, BookmarkIcon } from "@heroicons/vue/24/outline";
 import { format } from "timeago.js";
 import Button from "./Button.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { reactPost } from "@/composables/usePost";
 
 const { post } = defineProps({
   post: {
@@ -53,8 +54,23 @@ const emit = defineEmits(["detail"]);
 
 const active = ref(false);
 
-const likePost = () => {
-  console.log("like post");
+const likePost = async () => {
   active.value = !active.value;
+
+  await reactPost(post.id, post.profile.id);
 };
+
+onMounted(async () => {
+  const profileId = "d43d1e90-bc3b-4531-a33c-1ae79b8d1f2e";
+  // get current user profile
+
+  //check and turn on heart icon
+  const isLike = post.reactions.find((reaction) => reaction.profile === profileId);
+
+  console.log("[card]", isLike);
+
+  if (isLike) {
+    active.value = true;
+  }
+});
 </script>
