@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuth } from "@/composables/useAuth";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -6,6 +7,9 @@ const router = createRouter({
     {
       path: "/",
       component: () => import("@/layouts/Index.vue"),
+      meta: {
+        requiresAuth: true,
+      },
       children: [
         {
           path: "",
@@ -24,12 +28,26 @@ const router = createRouter({
       component: () => import("@/pages/Login.vue"),
     },
     {
-      path: "/my",
-      name: "myNote",
-      component: () => import("@/pages/MyNote.vue"),
+      path: "/p/:postId",
+      name: "Post Detail",
+      component: () => import("@/pages/PostDetail.vue"),
     },
     { path: "/:pathMatch(.*)*", name: "NotFound", component: () => import("@/pages/NotFound.vue") },
   ],
+});
+
+router.beforeEach(async (to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    const { user } = await useAuth();
+    if (user) {
+      next();
+    } else {
+      alert("You are not login!");
+      next("/login");
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
