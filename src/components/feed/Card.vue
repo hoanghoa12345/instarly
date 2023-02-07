@@ -42,6 +42,10 @@ import { format } from "timeago.js";
 import Button from "./Button.vue";
 import { onMounted, ref } from "vue";
 import { reactPost } from "@/composables/usePost";
+import { useUserStore } from "@/store/user";
+
+//Pinia user store user data and profile
+const store = useUserStore();
 
 const { post } = defineProps({
   post: {
@@ -61,13 +65,13 @@ const likePost = async () => {
 };
 
 onMounted(async () => {
-  const profileId = "d43d1e90-bc3b-4531-a33c-1ae79b8d1f2e";
+  const profileId = store.profile.id;
   // get current user profile
 
   //check and turn on heart icon
   const isLike = post.reactions.find((reaction) => reaction.profile === profileId);
 
-  console.log("[card]", isLike);
+  // console.log("[card]", isLike);
 
   if (isLike) {
     active.value = true;

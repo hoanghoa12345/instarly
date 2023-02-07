@@ -22,7 +22,7 @@
   </div>
   <Teleport to="body">
     <!-- Post modal -->
-    <PostModal :open="isOpen" @close="isOpen = false" :post="detailPost" />
+    <PostModal v-if="detailPost" :open="isOpen" @close="isOpen = false" :post="detailPost" />
   </Teleport>
   <div class="hidden">
     <button class="bg-green-500 border border-green-400 rounded-md text-white p-2" type="button" @click="signUp">Sign Up</button>
@@ -34,6 +34,9 @@ import { useClient } from "@/composables/useClient";
 import Card from "@/components/feed/Card.vue";
 import PostModal from "@/components/modal/PostModal.vue";
 import { getPosts } from "@/composables/usePost";
+import { useUserStore } from "@/store/user";
+
+const store = useUserStore();
 
 const profile = ref({
   fullname: "",
@@ -68,11 +71,15 @@ const getCurrentUser = async () => {
 const getUserProfile = async () => {
   const { user } = await getCurrentUser();
 
+  store.setUser(user);
+
   const { data, error } = await supabase.from("profiles").select().eq("user_id", user.id).single();
 
   console.log("[info] ", data, error);
 
   if (data) {
+    store.setProfile(data);
+
     profile.value = {
       username: data.username,
       fullname: data.fullname,

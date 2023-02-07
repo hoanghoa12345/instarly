@@ -13,6 +13,19 @@ export async function useAuth() {
     user,
   };
 }
+/**
+ *
+ * @param {string} userId User ID
+ * @returns User profile data
+ */
+export async function getProfileByUser(userId) {
+  try {
+    const { data, error } = await supabase.from("profiles").select().eq("user_id", userId).single();
+    return { data, error };
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function currentUser() {
   try {
