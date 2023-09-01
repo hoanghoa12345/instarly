@@ -1,4 +1,4 @@
-# Vue 3 + Vite
+# Instagram Vue 3 + Vite
 
 ## Setup projects
 

@@ -72,7 +72,9 @@ async function reactPost(postId, profileId) {
   // return { data, error };
 }
 
-async function getMedia() {}
+function getMedia(mediaPath) {
+  return import.meta.env.VITE_APP_SUPABASE_URL + "/storage/v1/object/public/posts-media/" + mediaPath;
+}
 
 /**
  * Handle to create new posts

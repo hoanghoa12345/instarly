@@ -3,7 +3,9 @@
     <!-- Feed -->
     <div class="max-w-[30rem] mt-10">
       <Card v-for="item in feed" :key="item.id" :post="item" @detail="viewDetail">
-        <img class="rounded-sm" :src="item.photos" alt="photos" />
+        <p v-if="item.caption">{{ item.caption }}</p>
+        <img class="rounded-sm" v-if="item.photos" :src="item.photos" alt="photos" />
+        <img class="rounded-sm" v-if="item.posts_media" v-for="media in item.posts_media" :src="getMedia(media.media_file)" alt="photos" />
       </Card>
     </div>
 
@@ -33,7 +35,7 @@ import { onMounted, reactive, ref } from "vue";
 import { useClient } from "@/composables/useClient";
 import Card from "@/components/feed/Card.vue";
 import PostModal from "@/components/modal/PostModal.vue";
-import { getPosts } from "@/composables/usePost";
+import { getPosts, getMedia } from "@/composables/usePost";
 import { useUserStore } from "@/store/user";
 
 const store = useUserStore();
