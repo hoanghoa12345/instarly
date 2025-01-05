@@ -1,8 +1,8 @@
 <template>
-  <Auth title="Sign up to Celebration" @google-auth="signInWithGoogle" @facebook-auth="signInWithFacebook">
+  <Auth title="Sign up to see photos and videos from your friends." @google-auth="signInWithGoogle" @facebook-auth="signInWithFacebook">
     <template #subTitle>
-      <p class="mt-2 text-base text-gray-600">
-        Already have an account?
+      <p class="mt-2 text-sm text-center text-gray-600">
+        Have an account?
         <router-link
           to="/login"
           title="Login"
@@ -16,69 +16,61 @@
       <form @submit.prevent="onSubmit" method="POST" class="mt-8">
         <div class="space-y-5">
           <div>
-            <label for="name" class="text-base font-medium text-gray-900"> Full Name </label>
-            <div class="mt-2.5">
+            <div class="mt-2">
               <input
                 type="text"
                 name="name"
                 id="name"
                 v-model="form.name"
-                placeholder="Enter your full name"
-                class="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
+                placeholder="Full Name"
+                class="block w-full text-sm p-2 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
               />
             </div>
           </div>
 
           <div>
-            <label for="email" class="text-base font-medium text-gray-900"> Email address </label>
-            <div class="mt-2.5">
+            <div class="mt-2">
               <input
                 type="email"
                 name="email"
                 id="email"
                 v-model="form.email"
-                placeholder="Enter email to get started"
-                class="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
+                placeholder="Email"
+                class="block w-full text-sm p-2 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
               />
             </div>
           </div>
 
           <div>
-            <label for="password" class="text-base font-medium text-gray-900"> Password </label>
-            <div class="mt-2.5">
+            <div class="mt-2">
               <input
                 type="password"
                 name="password"
                 id="password"
                 v-model="form.password"
-                placeholder="Enter your password"
-                class="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
+                placeholder="Password"
+                class="block w-full text-sm p-2 text-black placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
               />
             </div>
           </div>
 
-          <div class="flex items-center">
-            <input
-              v-model="form.agree"
-              type="checkbox"
-              name="agree"
-              id="agree"
-              class="w-5 h-5 text-blue-600 bg-white border-gray-200 rounded"
-            />
+          <div>
+            <span class="ml-3 text-sm font-medium text-gray-500">
+              By signing up, you agree to our
+              <a href="#" title="" class="text-blue-900 hover:text-blue-700 hover:underline">Terms</a>,
+              <a href="#" title="" class="text-blue-900 hover:text-blue-700 hover:underline">Privacy</a>
 
-            <label for="agree" class="ml-3 text-sm font-medium text-gray-500">
-              I agree to Postcraft's
-              <a href="#" title="" class="text-blue-600 hover:text-blue-700 hover:underline">Terms of Service</a> and
-              <a href="#" title="" class="text-blue-600 hover:text-blue-700 hover:underline">Privacy Policy</a>
-            </label>
+              and
+              <a href="#" title="" class="text-blue-900 hover:text-blue-700 hover:underline">Cookies Policy</a>
+            </span>
           </div>
 
           <div>
             <button
               type="submit"
-              class="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700"
+              class="inline-flex items-center justify-center w-full p-2 text-sm font-bold text-white transition-all duration-200 bg-blue-500 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Create free account
+              Sign up
             </button>
           </div>
         </div>
@@ -93,8 +85,9 @@ import { useClient } from "@/composables/useClient";
 import { reactive } from "vue";
 import { notify } from "notiwind";
 import { useRouter } from "vue-router";
+import { supabase } from "@/lib/supabaseClient";
 
-const supabase = useClient();
+// const supabase = useClient();
 
 const form = reactive({
   name: "",

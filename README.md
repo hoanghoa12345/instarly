@@ -1,16 +1,16 @@
-# Instagram Vue 3 + Vite
+# Instarly Vue 3 + Vite
 
 ## Setup projects
 
 Follow installation step:
 
 ```bash
-git clone github.com/hoanghoa12345/ig_supabase_vue.git
+git clone github.com/hoanghoa12345/instarly.git
 
-npm install
+pnpm install
 
 # To run code from local server
-npm run dev
+pnpm run dev
 ```
 
 Require base known:
@@ -37,13 +37,4 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 - [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
-TODO:
 
-- Upload photo to storage
-  - Upload to user folder
-- Create new posts
-- Add comment
-- Get list comment
-- Get reaction from user, handle if user react post.
-- Handle case user react post when check database if user reacted
-- Display list comments of posts

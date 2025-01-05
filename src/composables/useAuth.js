@@ -1,9 +1,11 @@
-import { useClient } from "./useClient";
+// import { useClient } from "./useClient";
 
-const supabase = useClient();
+import { supabase } from "@/lib/supabaseClient";
+
+// const supabase = useClient();
 
 export async function useAuth() {
-  const supabase = useClient();
+  // const supabase = useClient();
 
   const {
     data: { user },
@@ -27,7 +29,7 @@ export async function getProfileByUser(userId) {
   }
 }
 
-async function currentUser() {
+export async function getCurrentUser() {
   try {
     const {
       data: { user },
@@ -37,5 +39,3 @@ async function currentUser() {
     console.error("[error] ", error);
   }
 }
-
-export { currentUser };

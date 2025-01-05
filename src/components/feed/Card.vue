@@ -65,11 +65,12 @@ const likePost = async () => {
 };
 
 onMounted(async () => {
-  const profileId = store.profile.id;
+  const profileId = store.profile?.id;
   // get current user profile
 
   //check and turn on heart icon
   const isLike = post.reactions.find((reaction) => reaction.profile === profileId);
+  // const isLike = true;
 
   // console.log("[card]", isLike);
 
