@@ -1,3 +1,5 @@
+import tailwindcssMotion from "tailwindcss-motion";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
@@ -7,5 +9,5 @@ module.exports = {
       cursor: ["disabled"],
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("tailwindcss-motion")],
+  plugins: [require("@tailwindcss/forms"), tailwindcssMotion],
 };

@@ -9,19 +9,19 @@ importers:
   .:
     dependencies:
       '@supabase/supabase-js':
-        specifier: ^2.4.1
+        specifier: ^2.47.10
         version: 2.47.10
       '@tailwindcss/forms':
-        specifier: ^0.5.3
+        specifier: ^0.5.9
         version: 0.5.9(tailwindcss@3.4.17)
       axios:
-        specifier: ^1.5.0
+        specifier: ^1.7.9
         version: 1.7.9
       notiwind:
         specifier: ^1.2.6
         version: 1.2.6(vue@3.5.13)
       pinia:
-        specifier: ^2.0.29
+        specifier: ^2.3.0
         version: 2.3.0(vue@3.5.13)
       timeago.js:
         specifier: ^4.0.2
@@ -30,38 +30,38 @@ importers:
         specifier: ^6.3.7
         version: 6.3.7
       vue:
-        specifier: ^3.2.6
+        specifier: ^3.5.13
         version: 3.5.13
       vue-tippy:
-        specifier: v6
+        specifier: ^6.6.0
         version: 6.6.0(vue@3.5.13)
     devDependencies:
       '@heroicons/vue':
-        specifier: ^2.0.10
+        specifier: ^2.2.0
         version: 2.2.0(vue@3.5.13)
       '@vitejs/plugin-vue':
-        specifier: ^1.6.1
+        specifier: ^1.10.2
         version: 1.10.2(vite@2.9.18)
       '@vue/compiler-sfc':
-        specifier: ^3.2.6
+        specifier: ^3.5.13
         version: 3.5.13
       autoprefixer:
-        specifier: ^10.4.8
+        specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
       postcss:
-        specifier: ^8.4.16
+        specifier: ^8.4.49
         version: 8.4.49
       tailwindcss:
-        specifier: ^3.1.8
+        specifier: ^3.4.17
         version: 3.4.17
       tailwindcss-motion:
         specifier: ^1.0.1
         version: 1.0.1(tailwindcss@3.4.17)
       vite:
-        specifier: ^2.5.4
+        specifier: ^2.9.18
         version: 2.9.18
       vue-router:
-        specifier: ^4.0.11
+        specifier: ^4.5.0
         version: 4.5.0(vue@3.5.13)
 
 packages:
