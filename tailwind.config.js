@@ -9,10 +9,10 @@ module.exports = {
     extend: {
       opacity: ["disabled"],
       cursor: ["disabled"],
-    },
-    colors: {
-      primary: colors.blue,
-      secondary: colors.slate,
+      colors: {
+        primary: colors.blue,
+        secondary: colors.slate,
+      },
     },
   },
   plugins: [require("@tailwindcss/forms"), tailwindcssMotion],
